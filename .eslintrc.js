@@ -4,7 +4,6 @@ module.exports = {
     es2021: true,
     node: true,
     jest: true,
-    chai: true,
   },
   globals: {
     page: true,
