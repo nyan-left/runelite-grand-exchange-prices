@@ -36,13 +36,13 @@ module.exports = {
     "max-len": [
       "error",
       {
-        code: 155,
+        code: 120,
       },
     ],
     "prettier/prettier": [
       "error",
       {
-        printWidth: 155,
+        printWidth: 120,
       },
     ],
   },
