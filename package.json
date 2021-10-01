@@ -12,7 +12,8 @@
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "build:watch": "tsc -w -p tsconfig.release.json",
-    "lint": "eslint ./src --ext .ts,.tsx",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
     "test": "ts-mocha -p tsconfig.json tests/api.test.ts --timeout 10000",
     "web-tests": "webpack serve --progress --color --mode development --config webpack.config.js"
   },
