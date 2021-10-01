@@ -1,8 +1,8 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
-const main = ['./tests/web.ts'];
+const main = ["./tests/web.ts"];
 
 module.exports = {
   context: process.cwd(), // to automatically find tsconfig.json
@@ -10,37 +10,37 @@ module.exports = {
     main,
   },
   output: {
-    path: path.resolve(__dirname, 'test-dist'),
-    filename: '[name].js',
-    publicPath: '/',
+    path: path.resolve(__dirname, "test-dist"),
+    filename: "[name].js",
+    publicPath: "/",
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: 'tests/index.html',
+      template: "tests/index.html",
     }),
     new ESLintPlugin({
       fix: true,
-      extensions: ['ts', 'tsx'],
-      exclude: ['node_modules', 'tests'],
+      extensions: ["ts", "tsx"],
+      exclude: ["node_modules", "tests"],
     }),
   ],
   module: {
     rules: [
       {
         test: /.tsx?$/,
-        loader: require.resolve('ts-loader'),
+        loader: require.resolve("ts-loader"),
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: [".ts", ".tsx", ".js"],
   },
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   devServer: {
-    clientLogLevel: 'warning',
+    clientLogLevel: "warning",
     open: true,
     historyApiFallback: true,
-    stats: 'errors-only',
+    stats: "errors-only",
   },
 };
