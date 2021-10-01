@@ -1,5 +1,5 @@
-import * as API from '../src/index';
 import * as chai from 'chai';
+import * as API from '../src/index';
 
 describe('hello world', () => {
   it('returns "hello world"', async () => {
