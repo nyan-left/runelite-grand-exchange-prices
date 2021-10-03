@@ -2,16 +2,28 @@ import * as chai from "chai";
 import * as API from "../src/index";
 
 describe("/latest endpoint", () => {
-  it("resolves more than 3000 items", async () => {
+  it("resolves all items", async () => {
     const test = await API.latest();
     chai.expect(Object.keys(test)).to.be.an("array").that.has.length.above(3000);
   });
+
+  it("resolves a specific item", async () => {
+    const transactionData = await API.latest(4151);
+    chai.expect(transactionData).to.have.property("high");
+    chai.expect(transactionData).to.have.property("highTime");
+    chai.expect(transactionData).to.have.property("low");
+    chai.expect(transactionData).to.have.property("lowTime");
+  });
 });
 
-describe("/id endpoint", () => {
-  it("resolves an item", async () => {
-    const test = await API.id(4151);
-    console.log(test);
-    chai.expect(test).to.have.property("4151");
+describe("/mapping endpoint", () => {
+  it("resolves the mapping data", async () => {
+    const mappingData = await API.mapping();
+    chai.expect(mappingData).to.have.property("4151");
+  });
+
+  it("resolves specific item", async () => {
+    const mappingData = await API.mapping(4151);
+    chai.expect(mappingData.examine).to.be.equal("A weapon from the abyss.");
   });
 });
