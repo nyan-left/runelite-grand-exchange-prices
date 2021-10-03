@@ -6,9 +6,10 @@ import { TransactionData, FullMap, MapData } from "./spec";
  * Get the latest high and low prices for the items that we have data for,
  * and the Unix timestamp when that transaction took place
  * @param id - (optional) Item ID. If provided, will only display the latest price for this item.
+ * @returns An unsorted array (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const latest = async (id?: number): Promise<TransactionData> => {
+export const latest = async (id?: number): Promise<TransactionData | TransactionData[]> => {
   const url = id
     ? `https://prices.runescape.wiki/api/v1/osrs/latest?id=${id}`
     : `https://prices.runescape.wiki/api/v1/osrs/latest`;
@@ -27,6 +28,7 @@ const mappingCache: FullMap = {};
  *
  * The mapping is not updated often, so it is cached.
  * @param id - (optional) Item ID. If provided, will only display the map for this item.
+ * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
 export const mapping = async (id?: number): Promise<FullMap | MapData> => {
