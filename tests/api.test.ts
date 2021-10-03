@@ -35,7 +35,7 @@ describe("/5min endpoint", () => {
   });
 
   it("resolves specific item", async () => {
-    const minData = await API.min5(4151);
+    const minData = await API.min5({ id: 4151 });
     chai.expect(minData).to.have.property("timestamp");
     chai.expect(minData).to.have.property("lowPriceVolume");
     chai.expect(minData).to.have.property("highPriceVolume");

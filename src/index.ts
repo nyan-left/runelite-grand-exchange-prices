@@ -51,8 +51,11 @@ export const mapping = async (id?: number): Promise<FullMap | MapData> => {
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const min5 = async (id?: number): Promise<Min5Data> => {
-  const url = "https://prices.runescape.wiki/api/v1/osrs/5m";
+export const min5 = async (options?: { timestamp?: number | string; id?: number | string }): Promise<Min5Data> => {
+  const { timestamp, id } = options;
+  const url = timestamp
+    ? `https://prices.runescape.wiki/api/v1/osrs/5m?timestamp=${timestamp}`
+    : `https://prices.runescape.wiki/api/v1/osrs/5m`;
 
   const response = (await axios.get(url)).data as Min5Data;
 
