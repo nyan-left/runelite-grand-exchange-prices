@@ -18,6 +18,6 @@ export type MapData = {
   name: string;
 };
 
-export type MappingData = {
+export type FullMap = {
   [key: string]: MapData;
 };

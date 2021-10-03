@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import axios from "axios";
-import { TransactionData, MappingData, MapData } from "./spec";
+import { TransactionData, FullMap, MapData } from "./spec";
 
 /**
  * Get the latest high and low prices for the items that we have data for,
@@ -18,7 +18,7 @@ export const latest = async (id?: number): Promise<TransactionData> => {
 };
 
 // Mapping does not need to be updated often, so we can cache it.
-const mappingCache: MappingData = {};
+const mappingCache: FullMap = {};
 
 /**
  * Gives a list of objects containing the name,
@@ -29,16 +29,16 @@ const mappingCache: MappingData = {};
  * @param id - (optional) Item ID. If provided, will only display the map for this item.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const mapping = async (id?: number): Promise<MappingData | MapData> => {
+export const mapping = async (id?: number): Promise<FullMap | MapData> => {
   const cached = Object.keys(mappingCache).length > 0;
-  if (cached && !id) return mappingCache;
-  if (cached && id) return mappingCache[id];
+
+  if (cached) return mappingCache[id] ?? mappingCache;
 
   const response = (await axios.get("https://prices.runescape.wiki/api/v1/osrs/mapping")).data as MapData[];
+
   response.forEach((item) => {
     mappingCache[item.id] = item;
   });
 
-  if (id) return mappingCache[id];
-  return mappingCache;
+  return mappingCache[id] ?? mappingCache;
 };

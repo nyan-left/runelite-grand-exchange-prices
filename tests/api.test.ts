@@ -3,8 +3,8 @@ import * as API from "../src/index";
 
 describe("/latest endpoint", () => {
   it("resolves all items", async () => {
-    const test = await API.latest();
-    chai.expect(Object.keys(test)).to.be.an("array").that.has.length.above(3000);
+    const latestTransactions = await API.latest();
+    chai.expect(Object.keys(latestTransactions)).to.be.an("array").that.has.length.above(3000);
   });
 
   it("resolves a specific item", async () => {
