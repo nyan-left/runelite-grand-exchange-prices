@@ -34,13 +34,12 @@ const mappingCache: FullMap = {};
 export const mapping = async (id?: number): Promise<FullMap | MapData> => {
   const cached = Object.keys(mappingCache).length > 0;
 
-  if (cached) return mappingCache[id] ?? mappingCache;
-
-  const response = (await axios.get("https://prices.runescape.wiki/api/v1/osrs/mapping")).data as MapData[];
-
-  response.forEach((item) => {
-    mappingCache[item.id] = item;
-  });
+  if (!cached) {
+    const response = (await axios.get("https://prices.runescape.wiki/api/v1/osrs/mapping")).data as MapData[];
+    response.forEach((item) => {
+      mappingCache[item.id] = item;
+    });
+  }
 
   return mappingCache[id] ?? mappingCache;
 };
