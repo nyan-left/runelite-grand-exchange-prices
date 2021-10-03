@@ -69,3 +69,29 @@ export const min5 = async (options?: { timestamp?: number | string; id?: number 
 
   return response.data[id] ?? response.data;
 };
+
+/**
+ * Gives hourly average of item high and low prices as well as the number traded
+ * for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute
+ * block the data is from.
+ * @param id - (optional) Item ID. If provided, will only display the data for this item.
+ * @param timestamp - (optional) Timestep to return prices for.
+ * If provided, will display 5-minute averages for all items we have data on for this time.
+ * The timestamp field represents the beginning of the 5-minute period being averaged
+ * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
+ * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
+ */
+export const hour1 = async (options?: { timestamp?: number | string; id?: number | string }): Promise<Min5Data> => {
+  const { timestamp, id } = options;
+  const url = timestamp
+    ? `https://prices.runescape.wiki/api/v1/osrs/1h?timestamp=${timestamp}`
+    : `https://prices.runescape.wiki/api/v1/osrs/1h`;
+
+  const response = (await axios.get(url)).data as Min5Data;
+
+  (Object.keys(response.data) as (keyof Min5Data)[]).forEach((key) => {
+    response.data[key].timestamp = response.timestamp;
+  });
+
+  return response.data[id] ?? response.data;
+};
