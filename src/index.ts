@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import axios from "axios";
-import { TransactionData, FullMap, MapData } from "./spec";
+import { TransactionData, FullMap, MapData, Min5Data, Min5Datum } from "./spec";
 
 /**
  * Get the latest high and low prices for the items that we have data for,
@@ -42,4 +42,23 @@ export const mapping = async (id?: number): Promise<FullMap | MapData> => {
   }
 
   return mappingCache[id] ?? mappingCache;
+};
+
+/**
+ * Gives 5-minute average of item high and low prices as well as the number traded
+ * for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute
+ * block the data is from.
+ * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
+ * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
+ */
+export const min5 = async (id?: number): Promise<Min5Data> => {
+  const url = "https://prices.runescape.wiki/api/v1/osrs/5m";
+
+  const response = (await axios.get(url)).data as Min5Data;
+
+  (Object.keys(response.data) as (keyof Min5Data)[]).forEach((key) => {
+    response.data[key].timestamp = response.timestamp;
+  });
+
+  return response.data[id] ?? response.data;
 };

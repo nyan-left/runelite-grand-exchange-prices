@@ -27,3 +27,19 @@ describe("/mapping endpoint", () => {
     chai.expect(mappingData.examine).to.be.equal("A weapon from the abyss.");
   });
 });
+
+describe("/5min endpoint", () => {
+  it("resolves the 5min data", async () => {
+    const minData = await API.min5();
+    chai.expect(minData).to.have.property("4151");
+  });
+
+  it("resolves specific item", async () => {
+    const minData = await API.min5(4151);
+    chai.expect(minData).to.have.property("timestamp");
+    chai.expect(minData).to.have.property("lowPriceVolume");
+    chai.expect(minData).to.have.property("highPriceVolume");
+    chai.expect(minData).to.have.property("avgHighPrice");
+    chai.expect(minData).to.have.property("avgLowPrice");
+  });
+});

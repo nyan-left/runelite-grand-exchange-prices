@@ -21,3 +21,11 @@ export type MapData = {
 export type FullMap = {
   [key: string]: MapData;
 };
+
+export interface Min5Datum {
+  avgHighPrice: number | null;
+  highPriceVolume: number;
+  avgLowPrice: number | null;
+  lowPriceVolume: number;
+  timestamp: number;
+}
