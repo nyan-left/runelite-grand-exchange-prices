@@ -48,6 +48,10 @@ export const mapping = async (id?: number): Promise<FullMap | MapData> => {
  * Gives 5-minute average of item high and low prices as well as the number traded
  * for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute
  * block the data is from.
+ * @param id - (optional) Item ID. If provided, will only display the data for this item.
+ * @param timestamp - (optional) Timestep to return prices for.
+ * If provided, will display 5-minute averages for all items we have data on for this time.
+ * The timestamp field represents the beginning of the 5-minute period being averaged
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
