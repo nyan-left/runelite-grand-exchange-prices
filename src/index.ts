@@ -16,7 +16,7 @@ export const latest = async (options: { id?: number; useragent: string }): Promi
   const url = id ? `https://prices.runescape.wiki/api/v1/osrs/latest?id=${id}` : `https://prices.runescape.wiki/api/v1/osrs/latest`;
 
   const response = (
-    await axios.get(url, {
+    await axios.get<{ data: TransactionData }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data.data;
@@ -81,13 +81,12 @@ export const min5 = async (options: {
     : `https://prices.runescape.wiki/api/v1/osrs/5m`;
 
   const response = (
-    await axios.get(url, {
+    await axios.get<{ data: TimeSeriesData } & { timestamp: number }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;
-
   (Object.keys(response.data) as (keyof TimeSeriesData)[]).forEach((key) => {
-    response.data[key].timestamp = response.timestamp;
+    (response as any).data[key].timestamp = response.timestamp;
   });
 
   return response.data[id] ?? response.data;
@@ -117,13 +116,13 @@ export const hour1 = async (options: {
     : `https://prices.runescape.wiki/api/v1/osrs/1h`;
 
   const response = (
-    await axios.get(url, {
+    await axios.get<{ data: TimeSeriesData } & { timestamp: number }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;
 
   (Object.keys(response.data) as (keyof TimeSeriesData)[]).forEach((key) => {
-    response.data[key].timestamp = response.timestamp;
+    (response as any).data[key].timestamp = response.timestamp;
   });
 
   return response.data[id] ?? response.data;
@@ -147,7 +146,7 @@ export const timeseries = async (options: {
   const url = `https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=${timestep}&id=${id}`;
 
   const response = (
-    await axios.get(url, {
+    await axios.get<{ data: TimeSeriesData }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;
