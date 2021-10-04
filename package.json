@@ -17,7 +17,7 @@
     "test": "ts-mocha -p tsconfig.json tests/api.test.ts --timeout 10000",
     "web-tests": "webpack serve --progress --color --mode development --config webpack.config.js",
     "test-watch": "npm run test -- --watch",
-    "typedoc": "typedoc --out docs src/index.ts --excludePrivate --excludeProtected --theme minimal"
+    "typedoc": "typedoc --out docs src/index.ts --excludePrivate --excludeProtected"
   },
   "files": [
     "README.md",

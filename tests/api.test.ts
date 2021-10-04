@@ -38,12 +38,12 @@ describe("/mapping endpoint", () => {
 
 describe("/5min endpoint", () => {
   it("resolves the 5min data", async () => {
-    const minData = await API.min5({ useragent });
+    const minData = await API.prices5Min({ useragent });
     chai.expect(minData).to.have.property("4151");
   });
 
   it("resolves specific item", async () => {
-    const minData = await API.min5({ id: 4151, useragent });
+    const minData = await API.prices5Min({ id: 4151, useragent });
     chai.expect(minData).to.have.property("timestamp");
     chai.expect(minData).to.have.property("lowPriceVolume");
     chai.expect(minData).to.have.property("highPriceVolume");
@@ -54,12 +54,12 @@ describe("/5min endpoint", () => {
 
 describe("/1hour endpoint", () => {
   it("resolves the 5min data", async () => {
-    const minData = await API.hour1({ useragent });
+    const minData = await API.prices1Hour({ useragent });
     chai.expect(minData).to.have.property("4151");
   });
 
   it("resolves specific item", async () => {
-    const minData = await API.hour1({ id: 4151, useragent });
+    const minData = await API.prices1Hour({ id: 4151, useragent });
     chai.expect(minData).to.have.property("timestamp");
     chai.expect(minData).to.have.property("lowPriceVolume");
     chai.expect(minData).to.have.property("highPriceVolume");

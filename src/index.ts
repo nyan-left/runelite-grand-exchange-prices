@@ -70,7 +70,7 @@ export const mapping = async (options: { id?: number; useragent: string }): Prom
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const min5 = async (options: {
+export const prices5Min = async (options: {
   timestamp?: number | string;
   id?: number | string;
   useragent: string;
@@ -105,7 +105,7 @@ export const min5 = async (options: {
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const hour1 = async (options: {
+export const prices1Hour = async (options: {
   timestamp?: number | string;
   id?: number | string;
   useragent: string;
