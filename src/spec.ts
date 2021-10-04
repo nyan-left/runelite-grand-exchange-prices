@@ -1,4 +1,5 @@
 /**
+ * Latest high and low prices for the items that we have data for, and the Unix timestamp when that transaction took place.
  * @property high - The high price.
  * @property highTime - The Unix timestamp when that transaction took place.
  * @property low - The low price.
@@ -12,7 +13,7 @@ export type TransactionData = {
 };
 
 /**
- * An item description.
+ * An item's descrption.
  * @property examine - The examine text.
  * @property id - The id.
  * @property members - States if it's members-only.
@@ -36,14 +37,14 @@ export type MapData = {
 };
 
 /**
- * A full map data list.
+ * A list of objects containing the name, id, examine text, members status, lowalch, highalch, GE buy limit, icon file name (on the wiki).
  */
 export type FullMap = {
   [key: string]: MapData;
 };
 
 /**
- * A list of properties of a timeseries data point.
+ * A list of the high and low prices of an item.
  * @property avgHighPrice - The average high price.
  * @property highPriceVolume - The high price volume.
  * @property avgLowPrice - The average low price.
