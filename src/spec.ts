@@ -22,7 +22,7 @@ export type FullMap = {
   [key: string]: MapData;
 };
 
-export interface Min5Datum {
+export interface TimeSeriesData {
   avgHighPrice: number | null;
   highPriceVolume: number;
   avgLowPrice: number | null;
