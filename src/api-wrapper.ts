@@ -16,11 +16,12 @@ export const latest = async (options: { id?: number; useragent: string }): Promi
   const url = id ? `https://prices.runescape.wiki/api/v1/osrs/latest?id=${id}` : `https://prices.runescape.wiki/api/v1/osrs/latest`;
 
   const response = (
-    await axios.get<{ data: Types.TransactionData }>(url, {
+    await axios.get<{ data: any }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data.data;
-  return response[id] ?? response;
+
+  return response[id!] ?? response;
 };
 
 // Mapping does not need to be updated often, so we can cache it.
@@ -54,7 +55,7 @@ export const mapping = async (options: { id?: number; useragent: string }): Prom
     });
   }
 
-  return mappingCache[id] ?? mappingCache;
+  return mappingCache[id!] ?? mappingCache;
 };
 
 /**
@@ -81,7 +82,7 @@ export const prices5Min = async (options: {
     : `https://prices.runescape.wiki/api/v1/osrs/5m`;
 
   const response = (
-    await axios.get<{ data: Types.TimeSeriesData } & { timestamp: number }>(url, {
+    await axios.get<{ data: any } & { timestamp: number }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;
@@ -89,7 +90,7 @@ export const prices5Min = async (options: {
     (response as any).data[key].timestamp = response.timestamp;
   });
 
-  return response.data[id] ?? response.data;
+  return response.data[id!] ?? response.data;
 };
 
 /**
@@ -116,7 +117,7 @@ export const prices1Hour = async (options: {
     : `https://prices.runescape.wiki/api/v1/osrs/1h`;
 
   const response = (
-    await axios.get<{ data: Types.TimeSeriesData } & { timestamp: number }>(url, {
+    await axios.get<{ data: any } & { timestamp: number }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;
@@ -125,7 +126,7 @@ export const prices1Hour = async (options: {
     (response as any).data[key].timestamp = response.timestamp;
   });
 
-  return response.data[id] ?? response.data;
+  return response.data[id!] ?? response.data;
 };
 
 /**
@@ -146,7 +147,7 @@ export const timeseries = async (options: {
   const url = `https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=${timestep}&id=${id}`;
 
   const response = (
-    await axios.get<{ data: Types.TimeSeriesData }>(url, {
+    await axios.get<{ data: any }>(url, {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;

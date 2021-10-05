@@ -1,23 +1,13 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "importHelpers": true,
-    "jsx": "react",
-    "alwaysStrict": true,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "build"
-  },
-  "include": [
-    "src/**/*",
-    "tests/**/*"
-  ]
-}
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs",
+      "declaration": true,
+      "outDir": "./build",
+      "lib": ["es2015", "dom"],
+      "strict": true,
+      "types": [ "@types/mocha"]
+    },
+    "include": ["src", "tests"],
+    "exclude": ["node_modules"]
+  }
