@@ -1,6 +1,6 @@
 {
-  "name": "runelite-grand-exchange-prices",
-  "description": "A real time grand exchange API wrapper (runelite).",
+  "name": "runelite-ge-prices",
+  "description": "A real time grand exchange prices API wrapper (runelite).",
   "version": "0.0.0",
   "engines": {
     "node": ">= 14.15 <15"
@@ -10,8 +10,8 @@
   "scripts": {
     "start": "npm run web-tests",
     "clean": "rimraf coverage build tmp",
-    "build": "tsc -p tsconfig.release.json",
-    "build:watch": "tsc -w -p tsconfig.release.json",
+    "build": "tsc",
+    "build:watch": "tsc -w",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "ts-mocha -p tsconfig.json tests/api.test.ts --timeout 10000",
