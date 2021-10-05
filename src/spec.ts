@@ -13,13 +13,6 @@ export type TransactionData = {
 };
 
 /**
- * Latest high and low prices for the items that we have data for, and the Unix timestamp when that transaction took place.
- */
-export type FullTransactionData = {
-  [key: string]: TransactionData;
-};
-
-/**
  * An item's descrption.
  * @property examine - The examine text.
  * @property id - The id.
