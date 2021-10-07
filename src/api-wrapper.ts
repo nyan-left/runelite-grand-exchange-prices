@@ -8,7 +8,7 @@ import * as Types from "./spec";
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
  * @param id - (optional) Item ID. If provided, will only display the latest price for this item.
- * @returns An unsorted array (if no id is provided) or a single object (if an id is provided).
+ * @returns An associative array object.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
 export const latest = async (options: { id?: number; useragent: string }): Promise<Types.FullTransactionData> => {
@@ -66,7 +66,7 @@ export const mapping = async (options: { useragent: string }): Promise<Types.Ful
  * @param timestamp - (optional) Timestep to return prices for.
  * If provided, will display 5-minute averages for all items we have data on for this time.
  * The timestamp field represents the beginning of the 5-minute period being averaged
- * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
+ * @returns An associative array object.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
 export const prices5Min = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
@@ -97,7 +97,7 @@ export const prices5Min = async (options: { timestamp?: number | string; userage
  * @param timestamp - (optional) Timestep to return prices for.
  * If provided, will display 5-minute averages for all items we have data on for this time.
  * The timestamp field represents the beginning of the 5-minute period being averaged
- * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
+ * @returns An associative array object.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
 export const prices1Hour = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
