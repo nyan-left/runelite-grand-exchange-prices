@@ -13,7 +13,7 @@ To ensure this package complies with the use policy, all requests must specify a
 ## Installing
 
 ```bash
-$ npm install runelite-ge-prices
+npm install runelite-ge-prices
 ```
 
 ## Importing the package
@@ -31,7 +31,6 @@ const runeliteAPI = require('runelite-ge-prices');
 ```
 
 ## Usage
-
 
 ### Latest Price
 
@@ -75,36 +74,30 @@ console.log(transaction);
 ### Mapping
 
 ```ts
-
+// Coming soon...
 
 ```
 
 ### 5 Minute Prices
 
 ```ts
-
+// Coming soon...
 
 ```
-
 
 ### 1 Hour Prices
+
 ```ts
-
-
+// Coming soon...
 ```
-
 
 ### Time-series
 
 ```ts
-
+// Coming soon...
 
 ```
 
-
-
-
 ## license
-
 
 MIT
