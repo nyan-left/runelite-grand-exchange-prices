@@ -56,7 +56,7 @@ console.log(latest)
 You may also request specific items:
 
 ```ts
-const request = await API.latest({ id: 4151, useragent });
+const latest = await API.latest({ id: 4151, useragent });
 const transaction = request["4151"];
 
 console.log(transaction);
