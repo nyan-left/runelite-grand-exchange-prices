@@ -12,12 +12,13 @@ describe("/latest endpoint", () => {
   });
 
   it("resolves a specific item", async () => {
-    const transactionData = await API.latest({ id: 4151, useragent });
+    const request = await API.latest({ id: 4151, useragent });
+    const transaction = request["4151"];
 
-    chai.expect(transactionData).to.have.property("high");
-    chai.expect(transactionData).to.have.property("highTime");
-    chai.expect(transactionData).to.have.property("low");
-    chai.expect(transactionData).to.have.property("lowTime");
+    chai.expect(transaction).to.have.property("high");
+    chai.expect(transaction).to.have.property("highTime");
+    chai.expect(transaction).to.have.property("low");
+    chai.expect(transaction).to.have.property("lowTime");
   });
 });
 
@@ -26,14 +27,6 @@ describe("/mapping endpoint", () => {
     const mappingData = await API.mapping({ useragent });
     chai.expect(mappingData).to.have.property("4151");
   });
-
-  it("resolves specific item", async () => {
-    const mappingData = await API.mapping({
-      id: 4151,
-      useragent,
-    });
-    chai.expect(mappingData.examine).to.be.equal("A weapon from the abyss.");
-  });
 });
 
 describe("/5min endpoint", () => {
@@ -41,37 +34,18 @@ describe("/5min endpoint", () => {
     const minData = await API.prices5Min({ useragent });
     chai.expect(minData).to.have.property("4151");
   });
-
-  it("resolves specific item", async () => {
-    const minData = await API.prices5Min({ id: 4151, useragent });
-    chai.expect(minData).to.have.property("timestamp");
-    chai.expect(minData).to.have.property("lowPriceVolume");
-    chai.expect(minData).to.have.property("highPriceVolume");
-    chai.expect(minData).to.have.property("avgHighPrice");
-    chai.expect(minData).to.have.property("avgLowPrice");
-  });
 });
 
 describe("/1hour endpoint", () => {
-  it("resolves the 5min data", async () => {
+  it("resolves the 1hour data", async () => {
     const minData = await API.prices1Hour({ useragent });
     chai.expect(minData).to.have.property("4151");
-  });
-
-  it("resolves specific item", async () => {
-    const minData = await API.prices1Hour({ id: 4151, useragent });
-    chai.expect(minData).to.have.property("timestamp");
-    chai.expect(minData).to.have.property("lowPriceVolume");
-    chai.expect(minData).to.have.property("highPriceVolume");
-    chai.expect(minData).to.have.property("avgHighPrice");
-    chai.expect(minData).to.have.property("avgLowPrice");
   });
 });
 
 describe("/timeseries endpoint", () => {
   it("resolves 300 timesteps", async () => {
     const timeseries = await API.timeseries({ id: 4151, timestep: "5m", useragent });
-
     chai.expect(timeseries).to.be.an("array").that.has.length(300);
 
     const timestep = timeseries[0];

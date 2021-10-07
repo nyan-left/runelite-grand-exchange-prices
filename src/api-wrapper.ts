@@ -11,7 +11,7 @@ import * as Types from "./spec";
  * @returns An unsorted array (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const latest = async (options: { id?: number; useragent: string }): Promise<Types.TransactionData | Types.TransactionData[]> => {
+export const latest = async (options: { id?: number; useragent: string }): Promise<Types.FullTransactionData> => {
   const { id, useragent } = options || {};
   const url = id ? `https://prices.runescape.wiki/api/v1/osrs/latest?id=${id}` : `https://prices.runescape.wiki/api/v1/osrs/latest`;
 
@@ -21,7 +21,7 @@ export const latest = async (options: { id?: number; useragent: string }): Promi
     })
   ).data.data;
 
-  return response[id!] ?? response;
+  return response;
 };
 
 // Mapping does not need to be updated often, so we can cache it.
@@ -35,12 +35,11 @@ const mappingCache: Types.FullMap = {};
  * The mapping is not updated often, so it is cached.
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
- * @param id - (optional) Item ID. If provided, will only display the map for this item.
- * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
+ * @returns An associative array object.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const mapping = async (options: { id?: number; useragent: string }): Promise<Types.FullMap | Types.MapData> => {
-  const { id, useragent } = options || {};
+export const mapping = async (options: { useragent: string }): Promise<Types.FullMap> => {
+  const { useragent } = options || {};
   const cached = Object.keys(mappingCache).length > 0;
   const url = "https://prices.runescape.wiki/api/v1/osrs/mapping";
 
@@ -55,7 +54,7 @@ export const mapping = async (options: { id?: number; useragent: string }): Prom
     });
   }
 
-  return mappingCache[id!] ?? mappingCache;
+  return mappingCache;
 };
 
 /**
@@ -64,19 +63,14 @@ export const mapping = async (options: { id?: number; useragent: string }): Prom
  * block the data is from.
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
- * @param id - (optional) Item ID. If provided, will only display the data for this item.
  * @param timestamp - (optional) Timestep to return prices for.
  * If provided, will display 5-minute averages for all items we have data on for this time.
  * The timestamp field represents the beginning of the 5-minute period being averaged
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const prices5Min = async (options: {
-  timestamp?: number | string;
-  id?: number | string;
-  useragent: string;
-}): Promise<Types.TimeSeriesData | Types.TimeSeriesData[]> => {
-  const { timestamp, useragent, id } = options || {};
+export const prices5Min = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
+  const { timestamp, useragent } = options || {};
   const url = timestamp
     ? `https://prices.runescape.wiki/api/v1/osrs/5m?timestamp=${timestamp}`
     : `https://prices.runescape.wiki/api/v1/osrs/5m`;
@@ -86,11 +80,12 @@ export const prices5Min = async (options: {
       headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
     })
   ).data;
-  (Object.keys(response.data) as (keyof Types.TimeSeriesData)[]).forEach((key) => {
+  Object.keys(response.data).forEach((key) => {
     (response as any).data[key].timestamp = response.timestamp;
   });
+  console.log(response.data[0]);
 
-  return response.data[id!] ?? response.data;
+  return response.data;
 };
 
 /**
@@ -99,19 +94,14 @@ export const prices5Min = async (options: {
  * block the data is from.
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
- * @param id - (optional) Item ID. If provided, will only display the data for this item.
  * @param timestamp - (optional) Timestep to return prices for.
  * If provided, will display 5-minute averages for all items we have data on for this time.
  * The timestamp field represents the beginning of the 5-minute period being averaged
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const prices1Hour = async (options: {
-  timestamp?: number | string;
-  id?: number | string;
-  useragent: string;
-}): Promise<Types.TimeSeriesData | Types.TimeSeriesData[]> => {
-  const { timestamp, id, useragent } = options || {};
+export const prices1Hour = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
+  const { timestamp, useragent } = options || {};
   const url = timestamp
     ? `https://prices.runescape.wiki/api/v1/osrs/1h?timestamp=${timestamp}`
     : `https://prices.runescape.wiki/api/v1/osrs/1h`;
@@ -122,11 +112,11 @@ export const prices1Hour = async (options: {
     })
   ).data;
 
-  (Object.keys(response.data) as (keyof Types.TimeSeriesData)[]).forEach((key) => {
+  Object.keys(response.data).forEach((key) => {
     (response as any).data[key].timestamp = response.timestamp;
   });
 
-  return response.data[id!] ?? response.data;
+  return response.data;
 };
 
 /**
@@ -142,7 +132,7 @@ export const timeseries = async (options: {
   timestep: "5m" | "1h" | "6h";
   id: number | string;
   useragent: string;
-}): Promise<Types.TimeSeriesData[]> => {
+}): Promise<Types.TimeSeriesDataPoint[]> => {
   const { timestep, id, useragent } = options || {};
   const url = `https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=${timestep}&id=${id}`;
 

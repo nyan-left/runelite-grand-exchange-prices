@@ -12,6 +12,10 @@ export type TransactionData = {
   lowTime: number;
 };
 
+export type FullTransactionData = {
+  [key: string]: TransactionData;
+};
+
 /**
  * An item's descrption.
  * @property examine - The examine text.
@@ -51,10 +55,17 @@ export type FullMap = {
  * @property lowPriceVolume - The low price volume.
  * @property timestamp - The timestamp of the data.
  */
-export interface TimeSeriesData {
+export interface TimeSeriesDataPoint {
   avgHighPrice: number | null;
   highPriceVolume: number;
   avgLowPrice: number | null;
   lowPriceVolume: number;
   timestamp: number;
+}
+
+/**
+ * An assorted list of the high and low prices of an item.
+ */
+export interface TimeSeriesData {
+  [key: string]: TimeSeriesDataPoint;
 }
