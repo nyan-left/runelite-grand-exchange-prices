@@ -5,10 +5,10 @@ const useragent = "https://github.com/nyan-left/runelite-grand-exchange-prices a
 
 describe("/latest endpoint", () => {
   it("resolves all items", async () => {
-    const latestTransactions = await API.latest({
+    const latest = await API.latest({
       useragent,
     });
-    chai.expect(Object.keys(latestTransactions)).to.be.an("array").that.has.length.above(3000);
+    chai.expect(Object.keys(latest)).to.be.an("array").that.has.length.above(3000);
   });
 
   it("resolves a specific item", async () => {

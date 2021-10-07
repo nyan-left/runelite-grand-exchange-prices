@@ -35,27 +35,40 @@ const runeliteAPI = require('runelite-ge-prices');
 
 ### Latest Price
 
- Get the latest high and low prices for the items that we have data for, and the Unix timestamp when that transaction took place.
-
-  ```ts
-  const latest = await API.latest({
-      useragent,
-  });
-  console.log(latest)
-
-  ```
-
-
- returns An unsorted array (if no id is provided) or a single object (if an id is provided).
-
- * @param useragent - (required) a User-Agent that describes what you're using it for,
- * and if you're willing, some sort of contact info (like an email or Discord).
- * @param id - (optional) Item ID. If provided, will only display the latest price for this item.
- * @
-
+Get the latest high and low prices for the items that we have data for, and the Unix timestamp when that transaction took place.
 
 ```ts
+const latest = await API.latest({
+    useragent,
+});
 
+console.log(latest)
+
+/** output
+'25833': { high: 800, highTime: 1633541890, low: 400, lowTime: 1633564731 },
+'25849': { high: 330, highTime: 1633570020, low: 320, lowTime: 1633569964 },
+'25855': { high: 483, highTime: 1633549599, low: 45300, lowTime: 1633549707 },
+'25857': { high: 1800, highTime: 1633548698, low: 642, lowTime: 1633545181 },
+*/
+
+```
+
+You may also request specific items:
+
+```ts
+const request = await API.latest({ id: 4151, useragent });
+const transaction = request["4151"];
+
+console.log(transaction);
+
+/** output
+{
+  high: 1761642,
+  highTime: 1633570221,
+  low: 1760000,
+  lowTime: 1633570184
+}
+*/
 
 ```
 
