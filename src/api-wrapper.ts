@@ -11,10 +11,7 @@ import * as Types from "./spec";
  * @returns An unsorted array (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const latest = async <T extends number | undefined>(options: {
-  id?: T;
-  useragent: string;
-}): Promise<T extends string ? Types.TransactionData : Types.FullTransactionData> => {
+export const latest = async (options: { id?: number; useragent: string }): Promise<Types.TransactionData | Types.TransactionData[]> => {
   const { id, useragent } = options || {};
   const url = id ? `https://prices.runescape.wiki/api/v1/osrs/latest?id=${id}` : `https://prices.runescape.wiki/api/v1/osrs/latest`;
 
@@ -42,26 +39,23 @@ const mappingCache: Types.FullMap = {};
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const mapping = async <T extends number | undefined>(options: {
-  id?: T;
-  useragent: string;
-}): Promise<T extends string ? Types.FullMap : Types.MapData> => {
+export const mapping = async (options: { id?: number; useragent: string }): Promise<Types.FullMap | Types.MapData> => {
   const { id, useragent } = options || {};
   const cached = Object.keys(mappingCache).length > 0;
   const url = "https://prices.runescape.wiki/api/v1/osrs/mapping";
 
   if (!cached) {
     const response = (
-      await axios.get<Types.MapData[]>(url, {
+      await axios.get(url, {
         headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
       })
-    ).data;
+    ).data as Types.MapData[];
     response.forEach((item) => {
       mappingCache[item.id] = item;
     });
   }
 
-  return (mappingCache[id!] as any) ?? mappingCache;
+  return mappingCache[id!] ?? mappingCache;
 };
 
 /**
@@ -77,11 +71,11 @@ export const mapping = async <T extends number | undefined>(options: {
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const prices5Min = async <T extends number | undefined>(options: {
+export const prices5Min = async (options: {
   timestamp?: number | string;
-  id?: T;
+  id?: number | string;
   useragent: string;
-}): Promise<T extends string ? Types.TimeSeriesData : Types.TimeSeriesData[]> => {
+}): Promise<Types.TimeSeriesData | Types.TimeSeriesData[]> => {
   const { timestamp, useragent, id } = options || {};
   const url = timestamp
     ? `https://prices.runescape.wiki/api/v1/osrs/5m?timestamp=${timestamp}`
@@ -112,11 +106,11 @@ export const prices5Min = async <T extends number | undefined>(options: {
  * @returns An associative array object (if no id is provided) or a single object (if an id is provided).
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const prices1Hour = async <T extends number | undefined>(options: {
+export const prices1Hour = async (options: {
   timestamp?: number | string;
-  id?: T;
+  id?: number | string;
   useragent: string;
-}): Promise<T extends string ? Types.TimeSeriesData : Types.TimeSeriesData[]> => {
+}): Promise<Types.TimeSeriesData | Types.TimeSeriesData[]> => {
   const { timestamp, id, useragent } = options || {};
   const url = timestamp
     ? `https://prices.runescape.wiki/api/v1/osrs/1h?timestamp=${timestamp}`
@@ -144,9 +138,9 @@ export const prices1Hour = async <T extends number | undefined>(options: {
  * @returns A timeseries array.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const timeseries = async <T extends number | undefined>(options: {
+export const timeseries = async (options: {
   timestep: "5m" | "1h" | "6h";
-  id: T;
+  id: number | string;
   useragent: string;
 }): Promise<Types.TimeSeriesData[]> => {
   const { timestep, id, useragent } = options || {};
