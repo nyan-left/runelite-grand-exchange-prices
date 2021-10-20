@@ -6,7 +6,7 @@ This is a typed wrapper of real-time grand exchange prices, brought to you by a 
 
 ## Acceptable use policy
 
-The wiki team reserve the right to limit access to anyone, if their usage is so frequent that it threatens the stability of the entire API. Please read the acceptable use policy [acceptable use policy](https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices#Acceptable_use_policy) on the wiki.
+The wiki team reserve the right to limit access to anyone, if their usage is so frequent that it threatens the stability of the entire runeliteAPI. Please read the acceptable use policy [acceptable use policy](https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices#Acceptable_use_policy) on the wiki.
 
 To ensure this package complies with the use policy, all requests must specify a meaningful user agent.
 
@@ -59,7 +59,7 @@ const runeliteAPI = require('runelite-ge-prices');
 Get the latest high and low prices for the items that we have data for, and the Unix timestamp when that transaction took place.
 
 ```ts
-const latest = await API.latest({
+const latest = await runeliteAPI.latest({
     useragent,
 });
 
@@ -89,7 +89,7 @@ console.log(latest["25849"]);
 You may also request specific items:
 
 ```ts
-const latest = await API.latest({ id: 4151, useragent });
+const latest = await runeliteAPI.latest({ id: 4151, useragent });
 const transaction = request["4151"];
 
 console.log(transaction);
@@ -111,7 +111,7 @@ Gives a list of objects containing the name, id, examine text, members status, l
 
 
 ```ts
-const mapping = await API.mapping({ useragent });
+const mapping = await runeliteAPI.mapping({ useragent });
 console.log(mapping);
 
 /* output
@@ -166,7 +166,7 @@ console.log(mapping["4151"]);
 Gives 5-minute average of item high and low prices as well as the number traded for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute block the data is from.
 
 ```ts
-const data = await API.prices5Min({ useragent });
+const data = await runeliteAPI.prices5Min({ useragent });
 console.log(data);
 
 /* output
@@ -219,7 +219,7 @@ console.log(data["25849"]);
 You may optionally provide a timestamp to return prices for. If provided, will display 5-minute averages for all items we have data on for this time. The timestamp field represents the beginning of the 5-minute period being averaged
 
 ```ts
-const data = await API.prices5Min({ useragent, timestamp: 1634688300 });
+const data = await runeliteAPI.prices5Min({ useragent, timestamp: 1634688300 });
 ```
 
 ### 1 Hour Prices
@@ -227,14 +227,14 @@ const data = await API.prices5Min({ useragent, timestamp: 1634688300 });
 Gives hourly average of item high and low prices, and the number traded.
 
 ```ts
-const data = await API.prices1Hour({ useragent });
+const data = await runeliteAPI.prices1Hour({ useragent });
 console.log(data);
 ```
 
 You may optionally provide a timestamp to return prices for.
 
 ```ts
-const data = await API.prices1Hour({ useragent, timestamp: 1634688300 });
+const data = await runeliteAPI.prices1Hour({ useragent, timestamp: 1634688300 });
 ```
 
 ### Time-series
@@ -244,7 +244,7 @@ Gives a list of the high and low prices of item with the given id at the given i
 Available intervals are `5m`, `1h` and `6h`
 
 ```ts
-const timeseries = await API.timeseries({ id: 4151, timestep: "5m", useragent });
+const timeseries = await runeliteAPI.timeseries({ id: 4151, timestep: "5m", useragent });
 
 console.log(timeseries);
 
