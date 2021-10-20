@@ -10,6 +10,28 @@ The wiki team reserve the right to limit access to anyone, if their usage is so 
 
 To ensure this package complies with the use policy, all requests must specify a meaningful user agent.
 
+## Table of contents
+
+<!--ts-->
+   * [runelite-ge-prices](#runelite-ge-prices)
+      * [Acceptable use policy](#acceptable-use-policy)
+      * [Table of contents](#table-of-contents)
+      * [Installing](#installing)
+      * [Importing the package](#importing-the-package)
+         * [Using import](#using-import)
+         * [Using require](#using-require)
+      * [Usage](#usage)
+         * [Latest Price](#latest-price)
+         * [Mapping](#mapping)
+         * [5 Minute Prices](#5-minute-prices)
+         * [1 Hour Prices](#1-hour-prices)
+         * [Time-series](#time-series)
+      * [license](#license)
+
+<!-- Added by: deim, at: Wed 20 Oct 2021 01:45:37 BST -->
+
+<!--te-->
+
 ## Installing
 
 ```bash
