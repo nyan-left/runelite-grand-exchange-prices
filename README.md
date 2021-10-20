@@ -59,6 +59,10 @@ const runeliteAPI = require('runelite-ge-prices');
 Get the latest high and low prices for the items that we have data for, and the Unix timestamp when that transaction took place.
 
 ```ts
+
+const useragent = "https://www.npmjs.com/package/runelite-ge-prices useragent/example";
+// Ensure you're using a meaningful useragent to represent your use-case.
+
 const latest = await runeliteAPI.latest({
     useragent,
 });
