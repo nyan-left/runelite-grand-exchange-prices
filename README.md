@@ -6,7 +6,7 @@ This is a typed wrapper of real-time grand exchange prices, brought to you by a 
 
 ## Acceptable use policy
 
-The wiki team reserve the right to limit access to anyone, if their usage is so frequent that it threatens the stability of the entire runeliteAPI. Please read the acceptable use policy [acceptable use policy](https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices#Acceptable_use_policy) on the wiki.
+The wiki team reserve the right to limit access to anyone, if their usage is so frequent that it threatens the stability of the entire runeliteAPI. Please read the [acceptable use policy](https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices#Acceptable_use_policy) on the wiki.
 
 To ensure this package complies with the use policy, all requests must specify a meaningful user agent.
 
