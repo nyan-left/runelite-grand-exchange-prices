@@ -18,13 +18,13 @@ npm install runelite-ge-prices
 
 ## Importing the package
 
-#### Using import
+### Using import
 
 ```ts
 import * as runeliteAPI from 'runelite-ge-prices';
 ```
 
-#### Using require
+### Using require
 
 ```js
 const runeliteAPI = require('runelite-ge-prices');
@@ -93,7 +93,8 @@ const mapping = await API.mapping({ useragent });
 console.log(mapping);
 
 /* output
-{  ...,
+{
+  ...,
   '25034': {
       examine: 'The trousers of a trailblazer relic hunter.',
       id: 25034,
@@ -120,6 +121,7 @@ console.log(mapping);
 */
 
 console.log(mapping["4151"]);
+
 /** output
 {
   examine: 'A weapon from the abyss.',
@@ -244,6 +246,7 @@ console.log(timeseries);
 */
 
 console.log(timeseries[0]);
+
 /* output
 {
   timestamp: 1634599800,
@@ -252,7 +255,7 @@ console.log(timeseries[0]);
   highPriceVolume: 9,
   lowPriceVolume: 8
 }
-/*
+*/
 ```
 
 ## license
