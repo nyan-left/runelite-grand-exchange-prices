@@ -83,7 +83,6 @@ export const prices5Min = async (options: { timestamp?: number | string; userage
   Object.keys(response.data).forEach((key) => {
     (response as any).data[key].timestamp = response.timestamp;
   });
-  console.log(response.data[0]);
 
   return response.data;
 };
