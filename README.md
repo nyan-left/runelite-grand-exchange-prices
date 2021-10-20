@@ -43,7 +43,7 @@ const latest = await API.latest({
 
 console.log(latest)
 
-/** output
+/* output
 '25833': { high: 800, highTime: 1633541890, low: 400, lowTime: 1633564731 },
 '25849': { high: 330, highTime: 1633570020, low: 320, lowTime: 1633569964 },
 '25855': { high: 483, highTime: 1633549599, low: 45300, lowTime: 1633549707 },
@@ -60,7 +60,7 @@ const transaction = request["4151"];
 
 console.log(transaction);
 
-/** output
+/* output
 {
   high: 1761642,
   highTime: 1633570221,
@@ -73,10 +73,59 @@ console.log(transaction);
 
 ### Mapping
 
+Gives a list of objects containing the name, id, examine text, members status, lowalch, highalch, GE buy limit, icon file name (on the wiki).
+
+
 ```ts
-// Coming soon...
+const mapping = await API.mapping({ useragent });
+console.log(mapping);
+
+/* output
+...
+'25034': {
+    examine: 'The trousers of a trailblazer relic hunter.',
+    id: 25034,
+    members: true,
+    lowalch: 6000,
+    limit: 5,
+    value: 15000,
+    highalch: 9000,
+    icon: 'Trailblazer trousers (t1).png',
+    name: 'Trailblazer trousers (t1)'
+  },
+'25037': {
+    examine: 'The boots of a trailblazer relic hunter.',
+    id: 25037,
+    members: true,
+    lowalch: 6000,
+    limit: 5,
+    value: 15000,
+    highalch: 9000,
+    icon: 'Trailblazer boots (t1).png',
+    name: 'Trailblazer boots (t1)'
+  },
+  ...
+*/
+
+console.log(mapping["4151"]);
+/** output
+{
+  examine: 'A weapon from the abyss.',
+  id: 4151,
+  members: true,
+  lowalch: 48000,
+  limit: 70,
+  value: 120001,
+  highalch: 72000,
+  icon: 'Abyssal whip.png',
+  name: 'Abyssal whip'
+}
+*/
+
 
 ```
+
+The mapping data is not updated often, therefore it is cached internally.
 
 ### 5 Minute Prices
 
