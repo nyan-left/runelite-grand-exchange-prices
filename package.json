@@ -80,7 +80,7 @@
     "url": "https://github.com/nyan-left/runelite-grand-exchange-prices/issues"
   },
   "dependencies": {
-    "axios": "^0.23.0"
+    "axios": "^0.24.0"
   },
   "husky": {
     "hooks": {
