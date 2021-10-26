@@ -2,6 +2,8 @@
 import axios from "axios";
 import * as Types from "./spec";
 
+const UAstart = "npm runelite-grand-exchange-prices | -";
+
 /**
  * Get the latest high and low prices for the items that we have data for,
  * and the Unix timestamp when that transaction took place
@@ -13,11 +15,13 @@ import * as Types from "./spec";
  */
 export const latest = async (options: { id?: number; useragent: string }): Promise<Types.FullTransactionData> => {
   const { id, useragent } = options || {};
+  if (!useragent) throw new Error("useragent is required");
+
   const url = id ? `https://prices.runescape.wiki/api/v1/osrs/latest?id=${id}` : `https://prices.runescape.wiki/api/v1/osrs/latest`;
 
   const response = (
     await axios.get<{ data: any }>(url, {
-      headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
+      headers: { "User-Agent": `${UAstart} | ${useragent}` },
     })
   ).data.data;
 
@@ -40,13 +44,15 @@ const mappingCache: Types.FullMap = {};
  */
 export const mapping = async (options: { useragent: string }): Promise<Types.FullMap> => {
   const { useragent } = options || {};
+  if (!useragent) throw new Error("useragent is required");
+
   const cached = Object.keys(mappingCache).length > 0;
   const url = "https://prices.runescape.wiki/api/v1/osrs/mapping";
 
   if (!cached) {
     const response = (
       await axios.get(url, {
-        headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
+        headers: { "User-Agent": `${UAstart} | ${useragent}` },
       })
     ).data as Types.MapData[];
     response.forEach((item) => {
@@ -71,13 +77,15 @@ export const mapping = async (options: { useragent: string }): Promise<Types.Ful
  */
 export const prices5Min = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
   const { timestamp, useragent } = options || {};
+  if (!useragent) throw new Error("useragent is required");
+
   const url = timestamp
     ? `https://prices.runescape.wiki/api/v1/osrs/5m?timestamp=${timestamp}`
     : `https://prices.runescape.wiki/api/v1/osrs/5m`;
 
   const response = (
     await axios.get<{ data: any } & { timestamp: number }>(url, {
-      headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
+      headers: { "User-Agent": `${UAstart} | ${useragent}` },
     })
   ).data;
   Object.keys(response.data).forEach((key) => {
@@ -101,13 +109,15 @@ export const prices5Min = async (options: { timestamp?: number | string; userage
  */
 export const prices1Hour = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
   const { timestamp, useragent } = options || {};
+  if (!useragent) throw new Error("useragent is required");
+
   const url = timestamp
     ? `https://prices.runescape.wiki/api/v1/osrs/1h?timestamp=${timestamp}`
     : `https://prices.runescape.wiki/api/v1/osrs/1h`;
 
   const response = (
     await axios.get<{ data: any } & { timestamp: number }>(url, {
-      headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
+      headers: { "User-Agent": `${UAstart} | ${useragent}` },
     })
   ).data;
 
@@ -133,11 +143,13 @@ export const timeseries = async (options: {
   useragent: string;
 }): Promise<Types.TimeSeriesDataPoint[]> => {
   const { timestep, id, useragent } = options || {};
+  if (!useragent) throw new Error("useragent is required");
+
   const url = `https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=${timestep}&id=${id}`;
 
   const response = (
     await axios.get<{ data: any }>(url, {
-      headers: { "User-Agent": `npmjs.com/package/runelite-grand-exchange-prices | - ${useragent}` },
+      headers: { "User-Agent": `${UAstart} | ${useragent}` },
     })
   ).data;
 
