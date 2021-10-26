@@ -1,36 +1,27 @@
-name: NPM publish
-
+name: Release
 on:
-  release:
-    # This specifies that the build will be triggered when we publish a release
-    types: [published]
-
+  push:
+    branches:
+      - master
 jobs:
-  build:
-    # Run on latest version of ubuntu
+  release:
+    name: Release
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.release.target_commitish }}
-      - name: Use Node.js 12
-        uses: actions/setup-node@v1
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: git config --global user.name "GitHub CD bot"
-      - run: git config --global user.email "github-cd-bot@example.com"
-      - run: npm version ${{ github.event.release.tag_name }}
-      # build the project
-      - run: npm run build
-      - run: bash ./gh-md-toc.sh --insert README.md
-      # update table of contents
-      - run: npm test
-      - run: npm publish
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test
+      - name: Release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - run: git push
-        env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npx semantic-release
