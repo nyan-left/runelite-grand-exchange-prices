@@ -1,7 +1,10 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: build
+      prefix-development: chore
+      include: scope
+    schedule:
+      interval: daily
