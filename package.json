@@ -3,7 +3,7 @@
   "description": "A real time grand exchange prices API wrapper (runelite).",
   "version": "0.0.0-development",
   "engines": {
-    "node": ">= 14.15 <15"
+    "node": ">= 14.15 <16.1"
   },
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
