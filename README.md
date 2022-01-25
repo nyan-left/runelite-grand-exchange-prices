@@ -165,12 +165,14 @@ console.log(mapping["4151"]);
 
 ```
 
-### 5 Minute Prices
+### 5 Minute Prices / 1 Hour prices
 
-Gives 5-minute average of item high and low prices as well as the number traded for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute block the data is from.
+#### 5m
+
+Gives 5 or 60 minute average of item high and low prices as well as the number traded for the items that we have data on. Comes with a Unix timestamp indicating the 5 or 60 minute block the data is from.
 
 ```ts
-const data = await runeliteAPI.prices5Min({ useragent });
+const data = await runeliteAPI.prices({ useragent, interval: "5min" });
 console.log(data);
 
 /* output
@@ -220,25 +222,27 @@ console.log(data["25849"]);
 
 ```
 
-You may optionally provide a timestamp to return prices for. If provided, will display 5-minute averages for all items we have data on for this time. The timestamp field represents the beginning of the 5-minute period being averaged
-
-```ts
-const data = await runeliteAPI.prices5Min({ useragent, timestamp: 1634688300 });
-```
-
-### 1 Hour Prices
+#### 1h
 
 Gives hourly average of item high and low prices, and the number traded.
 
 ```ts
-const data = await runeliteAPI.prices1Hour({ useragent });
+const data = await runeliteAPI.prices({ useragent, interval: "1h" });
 console.log(data);
 ```
 
 You may optionally provide a timestamp to return prices for.
 
 ```ts
-const data = await runeliteAPI.prices1Hour({ useragent, timestamp: 1634688300 });
+const data = await runeliteAPI.prices({ useragent, timestamp: 1634688300, interval: "1h"  });
+```
+
+
+
+You may optionally provide a timestamp to return prices for. If provided, will display 5-minute averages for all items we have data on for this time. The timestamp field represents the beginning of the 5-minute period being averaged
+
+```ts
+const data = await runeliteAPI.prices({ useragent, timestamp: 1634688300, interval: "1h"  });
 ```
 
 ### Time-series

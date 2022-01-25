@@ -64,9 +64,10 @@ export const mapping = async (options: { useragent: string }): Promise<Types.Ful
 };
 
 /**
- * Gives 5-minute average of item high and low prices as well as the number traded
- * for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute
+ * Gives 5 or 60 minute average of item high and low prices as well as the number traded
+ * for the items that we have data on. Comes with a Unix timestamp indicating the 5 or 60 minute
  * block the data is from.
+ * @param interval - (optional) Either "5m" or "60m". Defaults to "5m".
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
  * @param timestamp - (optional) Timestep to return prices for.
@@ -75,13 +76,23 @@ export const mapping = async (options: { useragent: string }): Promise<Types.Ful
  * @returns An associative array object.
  * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
  */
-export const prices5Min = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
+export const prices = async (options: {
+  interval?: "5m" | "1h";
+  timestamp?: number | string;
+  useragent: string;
+}): Promise<Types.TimeSeriesData> => {
   const { timestamp, useragent } = options || {};
+  let { interval } = options || {};
   if (!useragent) throw new Error("useragent is required");
+  if (interval) interval.toLowerCase();
+
+  if (interval !== "5m" && interval !== "1h")
+    console.error("interval must be '5m' or '1h'. Falling back to 5min, in future, this will be an error.");
+  interval = interval ?? "5m";
 
   const url = timestamp
-    ? `https://prices.runescape.wiki/api/v1/osrs/5m?timestamp=${timestamp}`
-    : `https://prices.runescape.wiki/api/v1/osrs/5m`;
+    ? `https://prices.runescape.wiki/api/v1/osrs/${interval}?timestamp=${timestamp}`
+    : `https://prices.runescape.wiki/api/v1/osrs/${interval}`;
 
   const response = (
     await axios.get<{ data: any } & { timestamp: number }>(url, {
@@ -96,36 +107,17 @@ export const prices5Min = async (options: { timestamp?: number | string; userage
 };
 
 /**
- * Gives hourly average of item high and low prices as well as the number traded
- * for the items that we have data on. Comes with a Unix timestamp indicating the 5 minute
- * block the data is from.
- * @param useragent - (required) a User-Agent that describes what you're using it for,
- * and if you're willing, some sort of contact info (like an email or Discord).
- * @param timestamp - (optional) Timestep to return prices for.
- * If provided, will display 5-minute averages for all items we have data on for this time.
- * The timestamp field represents the beginning of the 5-minute period being averaged
- * @returns An associative array object.
- * @see https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices
+ * This method has been deprecated. Use prices(), specifying a `interval` of `5m` or `1h` instead.
+ */
+export const prices5Min = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
+  throw new Error("prices5Min is deprecated. Use prices({timestamp: '5m'}) instead.");
+};
+
+/**
+ * This method has been deprecated. Use prices(), specifying a `interval` of `5m` or `1h` instead.
  */
 export const prices1Hour = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
-  const { timestamp, useragent } = options || {};
-  if (!useragent) throw new Error("useragent is required");
-
-  const url = timestamp
-    ? `https://prices.runescape.wiki/api/v1/osrs/1h?timestamp=${timestamp}`
-    : `https://prices.runescape.wiki/api/v1/osrs/1h`;
-
-  const response = (
-    await axios.get<{ data: any } & { timestamp: number }>(url, {
-      headers: { "User-Agent": `${UAstart} | ${useragent}` },
-    })
-  ).data;
-
-  Object.keys(response.data).forEach((key) => {
-    (response as any).data[key].timestamp = response.timestamp;
-  });
-
-  return response.data;
+  throw new Error("prices1Hour is deprecated. Use prices({timestamp: '1h'}) instead.");
 };
 
 /**
