@@ -33,14 +33,14 @@ describe("/mapping endpoint", () => {
 
 describe("prices /5m endpoint", () => {
   it("resolves the 5min data", async () => {
-    const minData = await API.prices({ useragent, interval: "5m" });
+    const minData = await API.prices({ useragent, timestep: "5m" });
     chai.expect(minData).to.have.property("4151");
   });
 });
 
 describe("prices /1h endpoint", () => {
   it("resolves the 1hour data", async () => {
-    const minData = await API.prices({ useragent, interval: "1h" });
+    const minData = await API.prices({ useragent, timestep: "1h" });
     chai.expect(minData).to.have.property("4151");
   });
 });
