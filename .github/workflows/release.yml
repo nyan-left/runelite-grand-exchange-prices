@@ -27,6 +27,7 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
+      - run: bash ./gh-md-toc.sh --insert README.md
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
