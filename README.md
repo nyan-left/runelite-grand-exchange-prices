@@ -13,7 +13,7 @@ To ensure this package complies with the use policy, all requests must specify a
 ## Table of contents
 
 <!--ts-->
-   * [runelite-ge-prices](#runelite-ge-prices)
+   * [runelite](#runelite)
       * [Acceptable use policy](#acceptable-use-policy)
       * [Table of contents](#table-of-contents)
       * [Installing](#installing)
@@ -23,12 +23,11 @@ To ensure this package complies with the use policy, all requests must specify a
       * [Usage](#usage)
          * [Latest Price](#latest-price)
          * [Mapping](#mapping)
-         * [5 Minute Prices](#5-minute-prices)
-         * [1 Hour Prices](#1-hour-prices)
+         * [Prices](#prices)
          * [Time-series](#time-series)
       * [license](#license)
 
-<!-- Added by: deim, at: Wed 20 Oct 2021 01:45:37 BST -->
+<!-- Added by: deim, at: Tue 25 Jan 2022 23:50:27 GMT -->
 
 <!--te-->
 
@@ -43,13 +42,13 @@ npm install runelite
 ### Using import
 
 ```ts
-import * as runeliteAPI from 'runelite-ge-prices';
+import * as runeliteAPI from 'runelite';
 ```
 
 ### Using require
 
 ```js
-const runeliteAPI = require('runelite-ge-prices');
+const runeliteAPI = require('runelite');
 ```
 
 ## Usage
@@ -60,7 +59,7 @@ Get the latest high and low prices for the items that we have data for, and the 
 
 ```ts
 
-const useragent = "https://www.npmjs.com/package/runelite-ge-prices useragent/example";
+const useragent = "https://www.npmjs.com/package/runelite useragent/example";
 // Ensure you're using a meaningful useragent to represent your use-case.
 
 const latest = await runeliteAPI.latest({

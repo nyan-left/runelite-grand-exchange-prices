@@ -2,7 +2,7 @@
 import axios from "axios";
 import * as Types from "./spec";
 
-const UAstart = "npm runelite-grand-exchange-prices | -";
+const UAstart = "npm runelite | -";
 
 /**
  * Get the latest high and low prices for the items that we have data for,
