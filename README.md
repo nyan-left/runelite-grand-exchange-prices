@@ -203,7 +203,8 @@ console.log(data["25849"]);
 */
 
 ```
-You may optionally provide a timestamp to return prices for. If provided, will display 5-minute averages for all items we have data on for this time. The timestamp field represents the beginning of the 5-minute period being averaged
+
+You may optionally provide a timestamp to return prices for. If provided, will display (in this example) 5-minute averages for all items we have data on for this time. The timestamp field represents the beginning of the 5-minute period being averaged
 
 ```ts
 const data = await runeliteAPI.prices({ useragent, timestamp: 1634688300, timestep: "5m"  });
