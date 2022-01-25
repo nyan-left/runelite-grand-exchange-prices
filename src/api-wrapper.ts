@@ -65,8 +65,7 @@ export const mapping = async (options: { useragent: string }): Promise<Types.Ful
 
 /**
  * Gives 5 or 60 minute average of item high and low prices as well as the number traded
- * for the items that we have data on. Comes with a Unix timestamp indicating the 5 or 60 minute
- * block the data is from.
+ * for the items that we have data on. Comes with a Unix timestamp indicating the block the data is from.
  * @param interval - (optional) Either "5m" or "60m". Defaults to "5m".
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
