@@ -172,7 +172,7 @@ console.log(mapping["4151"]);
 Gives 5 or 60 minute average of item high and low prices as well as the number traded for the items that we have data on. Comes with a Unix timestamp indicating the 5 or 60 minute block the data is from.
 
 ```ts
-const data = await runeliteAPI.prices({ useragent, interval: "5min" });
+const data = await runeliteAPI.prices({ useragent, interval: "5m" });
 console.log(data);
 
 /* output
