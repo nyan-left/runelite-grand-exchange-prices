@@ -1,4 +1,4 @@
-# runelite-ge-prices
+# runelite
 
 This is a typed wrapper of real-time grand exchange prices, brought to you by a partnership between [RuneLite](https://runelite.net/) and the [RuneScape wiki](https://oldschool.runescape.wiki/) team. Please be aware that this is a fairly new project, and the endpoints may have downtime, and the prices may not be 100% accurate. Read more [here](https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices).
 
@@ -35,7 +35,7 @@ To ensure this package complies with the use policy, all requests must specify a
 ## Installing
 
 ```bash
-npm install runelite-ge-prices
+npm install runelite
 ```
 
 ## Importing the package
@@ -74,8 +74,6 @@ console.log(latest)
   ...,
   '25833': { high: 800, highTime: 1633541890, low: 400, lowTime: 1633564731 },
   '25849': { high: 330, highTime: 1633570020, low: 320, lowTime: 1633569964 },
-  '25855': { high: 483, highTime: 1633549599, low: 45300, lowTime: 1633549707 },
-  '25857': { high: 1800, highTime: 1633548698, low: 642, lowTime: 1633545181 },
   ...
 }
 */
@@ -165,11 +163,9 @@ console.log(mapping["4151"]);
 
 ```
 
-### 5 Minute Prices / 1 Hour prices
+### Prices
 
-#### 5m
-
-Gives 5 or 60 minute average of item high and low prices as well as the number traded for the items that we have data on. Comes with a Unix timestamp indicating the 5 or 60 minute block the data is from.
+Gives 5 or 60 (`interval: "5m"` or `interval: "1h"` respectively ) minute average of item high and low prices as well as the number traded for the items that we have data on. Comes with a Unix timestamp indicating the 5 or 60 minute block the data is from.
 
 ```ts
 const data = await runeliteAPI.prices({ useragent, interval: "5m" });
@@ -190,20 +186,6 @@ console.log(data);
     avgLowPrice: 2001,
     lowPriceVolume: 9,
     timestamp: 1634688300
-  },
-  '25849': {
-    avgHighPrice: 313,
-    highPriceVolume: 14486,
-    avgLowPrice: 312,
-    lowPriceVolume: 7320,
-    timestamp: 1634688300
-  },
-  '25853': {
-    avgHighPrice: 466,
-    highPriceVolume: 30,
-    avgLowPrice: null,
-    lowPriceVolume: 0,
-    timestamp: 1634688300
   }, ...
 }
 */
@@ -222,22 +204,11 @@ console.log(data["25849"]);
 
 ```
 
-#### 1h
-
-Gives hourly average of item high and low prices, and the number traded.
-
-```ts
-const data = await runeliteAPI.prices({ useragent, interval: "1h" });
-console.log(data);
-```
-
 You may optionally provide a timestamp to return prices for.
 
 ```ts
 const data = await runeliteAPI.prices({ useragent, timestamp: 1634688300, interval: "1h"  });
 ```
-
-
 
 You may optionally provide a timestamp to return prices for. If provided, will display 5-minute averages for all items we have data on for this time. The timestamp field represents the beginning of the 5-minute period being averaged
 
