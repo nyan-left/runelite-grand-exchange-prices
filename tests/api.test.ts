@@ -1,6 +1,7 @@
 import * as chai from "chai";
+import * as chaiAsPromised from "chai-as-promised";
 import * as API from "../src/index";
-import * as chaiAsPromised from 'chai-as-promised';
+
 chai.use(chaiAsPromised);
 const useragent = "https://github.com/nyan-left/runelite-grand-exchange-prices automated tests";
 
@@ -41,16 +42,6 @@ describe("prices /1h endpoint", () => {
   it("resolves the 1hour data", async () => {
     const minData = await API.prices({ useragent, interval: "1h" });
     chai.expect(minData).to.have.property("4151");
-  });
-});
-
-describe("deprecated methods", () => {
-  it("prices1Hour throws an error", async () => {
-    await chai.expect(API.prices1Hour({ useragent })).to.be.rejectedWith(Error);
-  });
-
-  it("prices5Minutes throws an error", async () => {
-    await chai.expect(API.prices5Min({ useragent })).to.be.rejectedWith(Error);
   });
 });
 

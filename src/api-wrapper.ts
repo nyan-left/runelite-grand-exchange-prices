@@ -107,20 +107,6 @@ export const prices = async (options: {
 };
 
 /**
- * This method has been deprecated. Use prices(), specifying a `interval` of `5m` or `1h` instead.
- */
-export const prices5Min = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
-  throw new Error("prices5Min is deprecated. Use prices({timestamp: '5m'}) instead.");
-};
-
-/**
- * This method has been deprecated. Use prices(), specifying a `interval` of `5m` or `1h` instead.
- */
-export const prices1Hour = async (options: { timestamp?: number | string; useragent: string }): Promise<Types.TimeSeriesData> => {
-  throw new Error("prices1Hour is deprecated. Use prices({timestamp: '1h'}) instead.");
-};
-
-/**
  * Gives a list of the high and low prices of item with the given id at the given interval, up to 300 maximum.
  * @param useragent - (required) a User-Agent that describes what you're using it for,
  * and if you're willing, some sort of contact info (like an email or Discord).
