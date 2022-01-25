@@ -1,5 +1,5 @@
 {
-  "name": "runelite-ge-prices",
+  "name": "runelite",
   "description": "A real time grand exchange prices API wrapper (runelite).",
   "version": "0.0.0-development",
   "engines": {
