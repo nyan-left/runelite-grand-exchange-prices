@@ -83,7 +83,7 @@ export const prices = async (options: {
   const { timestamp, useragent } = options || {};
   let { timestep } = options || {};
   if (!useragent) throw new Error("useragent is required");
-  if (timestep) timestep.toLowerCase();
+  if (timestep) timestep = timestep.toLowerCase() as "5m" | "1h";
 
   if (timestep !== "5m" && timestep !== "1h")
     console.error("interval must be '5m' or '1h'. Falling back to 5min, in future, this will be an error.");
