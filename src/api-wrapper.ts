@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import axios from "axios";
 import * as Types from "./spec";
 
